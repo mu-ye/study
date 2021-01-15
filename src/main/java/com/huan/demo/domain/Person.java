@@ -1,17 +1,14 @@
 package com.huan.demo.domain;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.huan.demo.param.UserParam;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.TableField;
+import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -19,14 +16,13 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author MuBaiSama
- * @since 2020-12-15
+ * @since 2021-01-15
  */
 @Data
-@NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("user")
-public class User implements Serializable {
+@TableName("person")
+public class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -43,10 +39,16 @@ public class User implements Serializable {
     private String username;
 
     /**
-     * 密码
+     * 性别 0： 男 1 女
      */
-    @TableField("password")
-    private String password;
+    @TableField("sex")
+    private Integer sex;
+
+    /**
+     * 生日
+     */
+    @TableField("birthday")
+    private LocalDateTime birthday;
 
     /**
      * 是否生效 0： false  1: true
@@ -65,12 +67,6 @@ public class User implements Serializable {
      */
     @TableField("update_time")
     private LocalDateTime updateTime;
-
-    public User(UserParam userParam){
-        this.username = userParam.getUsername();
-        this.password = userParam.getPassword();
-        this.alive = 1;
-    }
 
 
 }

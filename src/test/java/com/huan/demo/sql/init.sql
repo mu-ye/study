@@ -29,6 +29,20 @@ CREATE TABLE IF NOT EXISTS user
 ) ENGINE = InnoDB
   DEFAULT CHARSET = UTF8MB4;
 
+# 2. 创建用户表
+CREATE TABLE IF NOT EXISTS person
+(
+    id          INT UNSIGNED AUTO_INCREMENT COMMENT '自增ID',
+    username    VARCHAR(20)  NOT NULL COMMENT '用户名',
+    sex         INT UNSIGNED NOT NULL COMMENT '性别 0： 男 1 女',
+    birthday    DATETIME     NOT NULL COMMENT '生日',
+    alive       INT UNSIGNED NOT NULL COMMENT '是否生效 0： false  1: true',
+    creat_time  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+    PRIMARY KEY (id)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = UTF8MB4;
+
 # 3.  创建menu 表
 
 CREATE TABLE IF NOT EXISTS menu
@@ -176,7 +190,43 @@ VALUES ('117042', 1, 1),
 
 
 SELECT role_name
-FROM user_role,role
-WHERE user_role.job_number = '117042' and user_role.role_id = role.id;
+FROM user_role,
+     role
+WHERE user_role.job_number = '117042'
+  and user_role.role_id = role.id;
+
+
+################  测试数据库
+
+# 班级
+CREATE TABLE IF NOT EXISTS group
+(
+    id              INT UNSIGNED NOT NULL COMMENT '自增ID',
+    creat_user_id   INT UNSIGNED NOT NULL COMMENT '创建班级教师ID',
+    creat_user_name VARCHAR(20)  NOT NULL COMMENT '创建班级教师名称',
+    group_name      VARCHAR(30)  NOT NULL COMMENT '班级名称',
+    alive           INT UNSIGNED NOT NULL COMMENT '是否生效 0： false  1: true',
+    creat_time      DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time     DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+    PRIMARY KEY (id)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = UTF8MB4;
+
+# 成绩
+CREATE TABLE IF NOT EXISTS result
+(
+    id              INT UNSIGNED NOT NULL COMMENT '自增ID',
+    group_id              INT UNSIGNED NOT NULL COMMENT '班级ID',
+    student_user_id              INT UNSIGNED NOT NULL COMMENT '学生ID',
+    semester       INT UNSIGNED NOT NULL COMMENT '学期，默认有四个学期  1：  2：  3：  4：',
+    # 一些其他成绩字段
+    alive           INT UNSIGNED NOT NULL COMMENT '是否生效 0： false  1: true',
+    creat_time      DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time     DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+    PRIMARY KEY (id)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = UTF8MB4;
+
+
 
 

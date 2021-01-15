@@ -1,23 +1,22 @@
 package com.huan.demo.param;
 
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
 
 /**
  * @author 牟欢
- * @Classname FormParam
+ * @Classname UserParam
  * @Description TODO
- * @Date 2021-01-07 14:37
+ * @Date 2021-01-15 14:50
  */
 @Data
-public class FormParam {
+public class UserParam {
     @NotBlank(message = "用户名不能为空")
     public String username;
+    /**
+     * 密码
+     */
     @NotBlank(message = "密码不能为空")
-    public String sex;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    public LocalDateTime date;
+    public String password;
 }
